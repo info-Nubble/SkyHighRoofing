@@ -1,0 +1,1 @@
+// Gallery Masonry component placeholder

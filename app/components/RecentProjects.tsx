@@ -1,0 +1,1 @@
+// Recent Projects component placeholder
