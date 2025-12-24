@@ -56,8 +56,9 @@ export default async function GalleryPage() {
           </div>
 
           <div className="mt-10">
-            {/* @ts-expect-error Server/Client boundary */}
-            <GalleryMasonry photos={photos} />
+            
+              <GalleryMasonry photos={photos} />
+
           </div>
         </div>
       </section>
