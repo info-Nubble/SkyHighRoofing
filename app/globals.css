@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Base ---------- */
 :root {
   --radius: 1rem;
 }
@@ -16,14 +17,31 @@ html {
 }
 
 body {
-  @apply bg-sand/30 text-neutral-900 antialiased;
+  /* Replace Tailwind @apply with plain CSS (prevents the css-loader/sucrase parse crash) */
+  background: rgba(243, 235, 221, 0.30); /* "sand/30" vibe */
+  color: rgb(23, 23, 23);                /* neutral-900-ish */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* ---------- Layout ---------- */
 .container {
-  @apply mx-auto w-full max-w-7xl px-6 md:px-8;
+  width: 100%;
+  max-width: 80rem; /* ~ max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem; /* px-6 */
+  padding-right: 1.5rem;
 }
 
-/* Hero */
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem; /* md:px-8 */
+    padding-right: 2rem;
+  }
+}
+
+/* ---------- Hero ---------- */
 .hero-wrap {
   position: relative;
   background:
@@ -48,64 +66,85 @@ body {
   opacity: 0.35;
 }
 
-/* Buttons */
+/* ---------- Buttons ---------- */
 .btn {
-  @apply inline-flex items-center gap-2 rounded-xl px-5 py-3 font-semibold shadow-sm transition;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
 }
 
 .btn-primary {
-  @apply bg-ocean text-white shadow-soft;
+  background: #0ea5a8; /* ocean-ish */
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,.12);
 }
 .btn-primary:hover {
-  @apply bg-ocean/90;
+  background: rgba(14, 165, 168, 0.90);
 }
 
 .btn-ghost {
-  @apply border border-white/30 text-white;
+  border: 1px solid rgba(255,255,255,0.30);
+  color: #fff;
 }
 .btn-ghost:hover {
-  @apply bg-white/10;
+  background: rgba(255,255,255,0.10);
 }
 
 .btn-outline {
-  @apply border border-neutral-300;
+  border: 1px solid rgb(212, 212, 212);
+  color: inherit;
 }
 .btn-outline:hover {
-  @apply bg-neutral-100;
+  background: rgb(245, 245, 245);
 }
 
-/* Cards / badges */
+/* ---------- Cards / Badges ---------- */
 .card {
-  @apply rounded-xl border border-neutral-200 bg-white shadow-soft;
+  border-radius: 0.75rem;
+  border: 1px solid rgb(229, 229, 229);
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,.06);
 }
 
 .badge {
-  @apply inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white backdrop-blur;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: #fff;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(8px);
 }
 
-/* Masonry */
+/* ---------- Masonry ---------- */
 .masonry {
   column-gap: 1.5rem;
 }
+
 @media (min-width: 640px) {
-  .masonry {
-    column-count: 2;
-  }
+  .masonry { column-count: 2; }
 }
 @media (min-width: 768px) {
-  .masonry {
-    column-count: 3;
-  }
+  .masonry { column-count: 3; }
 }
+
 .masonry-item {
   break-inside: avoid;
   margin-bottom: 1.5rem;
 }
 
-/* Header link underline animation */
+/* ---------- Header link underline animation ---------- */
 .header-link {
   position: relative;
 }
+
 .header-link::after {
   content: "";
   position: absolute;
@@ -119,7 +158,13 @@ body {
   transform: translateY(2px);
   transition: all 0.18s ease;
 }
+
 .header-link:hover::after {
   opacity: 0.5;
   transform: translateY(0);
+}
+
+/* ---------- iOS smooth scroll ---------- */
+@supports (-webkit-touch-callout: none) {
+  .overflow-y-auto { -webkit-overflow-scrolling: touch; }
 }
