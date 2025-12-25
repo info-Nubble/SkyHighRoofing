@@ -2,26 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { --radius: 1rem; }
+/* Root */
+:root {
+  --radius: 1rem;
+}
 
-html, body { height: 100%; }
-html { scroll-behavior: smooth; }
+html,
+body {
+  height: 100%;
+}
 
 body {
-  background: rgba(243,235,221,.30);
-  color: rgb(23,23,23);
+  background: #fff7ea;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-.container{
-  width:100%;
-  max-width:80rem;
-  margin-left:auto;
-  margin-right:auto;
-  padding-left:1.5rem;
-  padding-right:1.5rem;
+/* Layout container */
+.container {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
-@media (min-width:768px){
-  .container{ padding-left:2rem; padding-right:2rem; }
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Hero */
+.hero-wrap {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: linear-gradient(135deg, #0e7490 0%, #0b2239 55%, #0b2239 100%);
+}
+
+
+.hero-wave {
+  background: url("/wave.svg") repeat-x bottom;
+  background-size: cover;
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center gap-2 rounded-xl px-5 py-3 font-semibold transition;
+}
+
+.btn-primary {
+  @apply bg-teal text-navy hover:bg-teal/90;
+}
+
+.btn-ghost {
+  @apply border border-white/30 text-white hover:bg-white/10;
+}
+
+/* Badge */
+.badge {
+  @apply rounded-full bg-black/70 px-3 py-1 text-xs font-semibold text-white backdrop-blur;
 }
