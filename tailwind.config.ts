@@ -8,7 +8,11 @@ export default {
       boxShadow: { soft: '0 10px 30px rgba(11,34,57,0.12)' },
       borderRadius: { xl2: '1.25rem' },
       keyframes: {
-        shimmer: { '0%,100%':{opacity:.35, transform:'translateX(-20%)'}, '50%':{opacity:.6, transform:'translateX(20%)'} }
+        shimmer: { shimmer: {
+  '0%,100%': { opacity: '0.35', transform: 'translateX(-20%)' },
+  '50%':     { opacity: '0.6',  transform: 'translateX(20%)' }
+}
+
       },
       animation: { shimmer:'shimmer 8s ease-in-out infinite' }
     }
