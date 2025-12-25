@@ -1,13 +1,14 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root { --radius: 1rem; }
 html, body { height: 100%; }
-body { @apply bg-sand/30 text-neutral-900 antialiased; }
-.container { @apply mx-auto w-full max-w-7xl px-6 md:px-8; }
 html { scroll-behavior: smooth; }
+
+body { @apply bg-sand/30 text-neutral-900 antialiased; }
+
+.container { @apply mx-auto w-full max-w-7xl px-6 md:px-8; }
 
 .hero-wrap {
   background:
@@ -15,34 +16,63 @@ html { scroll-behavior: smooth; }
     linear-gradient(to bottom, #0b2239, #0e3a5e 35%, #0b2239);
   position: relative;
 }
-.hero-shimmer { position:absolute; inset:0; background: radial-gradient(800px 200px at -10% 0%, rgba(20,184,166,.25), transparent), radial-gradient(800px 200px at 110% 0%, rgba(13,148,136,.25), transparent); pointer-events:none; }
-.hero-wave { background-image:url('/wave.svg'); background-size:cover; background-repeat:no-repeat; background-position:bottom center; opacity:.35; }
 
+.hero-shimmer {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 200px at -10% 0%, rgba(20,184,166,.25), transparent),
+    radial-gradient(800px 200px at 110% 0%, rgba(13,148,136,.25), transparent);
+  pointer-events: none;
+}
+
+.hero-wave {
+  background-image: url("/wave.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  opacity: 0.35;
+}
+
+/* Buttons */
 .btn { @apply inline-flex items-center gap-2 rounded-xl px-5 py-3 font-semibold shadow-sm transition; }
-.btn-primary { @apply bg-ocean text-white hover:bg-ocean/90 shadow-soft; }
-.btn-ghost { @apply border border-white/30 text-white hover:bg-white/10; }
-.btn-outline { @apply border border-neutral-300 hover:bg-neutral-100; }
 
+.btn-primary { @apply bg-ocean text-white shadow-soft; }
+.btn-primary:hover { @apply bg-ocean/90; }
+
+.btn-ghost { @apply border border-white/30 text-white; }
+.btn-ghost:hover { @apply bg-white/10; }
+
+.btn-outline { @apply border border-neutral-300; }
+.btn-outline:hover { @apply bg-neutral-100; }
+
+/* Cards / badges */
 .card { @apply rounded-xl border border-neutral-200 bg-white shadow-soft; }
 .badge { @apply inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white backdrop-blur; }
 
+/* Masonry */
 .masonry { column-gap: 1.5rem; }
 @media (min-width: 640px) { .masonry { column-count: 2; } }
 @media (min-width: 768px) { .masonry { column-count: 3; } }
 .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
+
 /* Header link underline animation */
-.header-link {
-  position: relative;
-}
+.header-link { position: relative; }
+
 .header-link::after {
   content: "";
   position: absolute;
-  left: 0; right: 0; bottom: -8px;
-  height: 2px; border-radius: 2px;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: 2px;
   background: currentColor;
-  opacity: 0; transform: translateY(2px);
+  opacity: 0;
+  transform: translateY(2px);
   transition: all .18s ease;
 }
+
 .header-link:hover::after { opacity: .5; transform: translateY(0); }
 
 /* Mobile drawer: smooth scrolling + hide scrollbar on iOS */
