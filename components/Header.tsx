@@ -1,54 +1,67 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { Facebook, Menu, X, Phone } from 'lucide-react';
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Facebook, Menu, X, Phone } from "lucide-react";
 
-const NAME_MAIN = 'Sky High Roofing';
-const NAME_SUB  = '& General Contracting';
-const PHONE = '(207) 451-3163';
-const PHONE_RAW = '+12074513163';
+const NAME_MAIN = "Sky High Roofing";
+const NAME_SUB = "& General Contracting";
+const PHONE = "(207) 451-3163";
+const PHONE_RAW = "+12074513163";
 
 const NAV = [
-  { label: 'Services', href: '/#services' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'Reviews', href: '/#reviews' },
-  { label: 'Service Area', href: '/#service-area' }, // <- ensure this matches your section id
-  { label: 'Contact', href: '/#contact' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'Before/After', href: '/before-after' },
+  { label: "Services", href: "/#services" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Reviews", href: "/#reviews" },
+  { label: "Service Area", href: "/#service-area" },
+  { label: "Contact", href: "/#contact" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Before/After", href: "/before-after" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showMark, setShowMark] = useState(true);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 6);
     onScroll();
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // If the logo-mark file doesn't exist, hide it cleanly
+  useEffect(() => {
+    // optional: comment out if you know the file exists
+    const img = new window.Image();
+    img.onload = () => setShowMark(true);
+    img.onerror = () => setShowMark(false);
+    img.src = "/logo-mark.png";
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 border-b border-black/5 transition
-      ${scrolled ? 'bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70' : 'bg-white/85 backdrop-blur'}
-    `}>
+    <header
+      className={`sticky top-0 z-50 border-b border-black/5 transition ${
+        scrolled
+          ? "bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70"
+          : "bg-white/85 backdrop-blur"
+      }`}
+    >
       <div className="container">
-        {/* Fixed height bar: 64px mobile, 80px md+ */}
-        <div className="grid h-16 md:h-20 grid-cols-[auto,1fr,auto] items-center gap-2 md:gap-4">
-          {/* Brand (never wraps or shrinks) */}
+        <div className="grid h-16 grid-cols-[auto,1fr,auto] items-center gap-2 md:h-20 md:gap-4">
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            {/* Use your mark if available; fallback to a simple shape */}
-            <Image
-              src="/logo-mark.png"
-              alt="Sky High"
-              width={28}
-              height={28}
-              className="rounded-sm"
-              onError={(e:any) => { e.currentTarget.style.display='none'; }}
-            />
+            {showMark && (
+              <Image
+                src="/logo-mark.png"
+                alt="Sky High"
+                width={28}
+                height={28}
+                className="rounded-sm"
+                priority
+              />
+            )}
             <div className="leading-tight">
               <div className="text-sm md:text-base font-bold text-sky-900 tracking-tight truncate max-w-[12rem] md:max-w-none">
                 {NAME_MAIN}
@@ -59,19 +72,14 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Center nav: no-wrap + horizontal scroll in tight/portrait view */}
           <nav
             className="hidden md:flex items-center justify-center overflow-x-auto whitespace-nowrap px-1 md:px-2"
-            style={{ scrollbarWidth: 'thin' }}
             aria-label="Primary"
           >
             <ul className="flex flex-nowrap items-center gap-5 md:gap-6 text-[15px] text-neutral-800">
               {NAV.map((item) => (
                 <li key={item.href} className="shrink-0">
-                  <Link
-                    href={item.href}
-                    className="transition-colors hover:text-sky-700"
-                  >
+                  <Link href={item.href} className="transition-colors hover:text-sky-700">
                     {item.label}
                   </Link>
                 </li>
@@ -91,7 +99,6 @@ export default function Header() {
             </ul>
           </nav>
 
-          {/* CTAs (fixed width, never wrap into nav) */}
           <div className="hidden md:flex items-center gap-2 md:gap-3 shrink-0">
             <a
               href={`tel:${PHONE_RAW}`}
@@ -109,7 +116,6 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile: right side (keeps bar compact) */}
           <div className="flex md:hidden items-center justify-end gap-2">
             <a
               href={`tel:${PHONE_RAW}`}
@@ -129,7 +135,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
       {open && (
         <>
           <div className="fixed inset-0 z-[60] bg-black/50" onClick={() => setOpen(false)} />
@@ -140,6 +145,7 @@ export default function Header() {
                 <X className="h-6 w-6" />
               </button>
             </div>
+
             <nav className="grid gap-1 px-3 pb-4">
               {NAV.map((item) => (
                 <Link
@@ -151,6 +157,7 @@ export default function Header() {
                   {item.label}
                 </Link>
               ))}
+
               <a
                 href="https://www.facebook.com/skyhighgeneralcontracting"
                 target="_blank"
@@ -159,18 +166,27 @@ export default function Header() {
                 className="rounded-lg px-3 py-3 text-[15px] font-medium text-neutral-900 hover:bg-neutral-100"
               >
                 <span className="inline-flex items-center gap-2">
-                  <Facebook className="h-4 w-4 text-[#1877F2]" />
+                  <Facebook className="h-4 w-4" />
                   Facebook
                 </span>
               </a>
+
               <div className="mx-3 mt-2 grid grid-cols-2 gap-2">
-                <a href={`tel:${PHONE_RAW}`} className="rounded-lg bg-teal px-4 py-3 text-center font-semibold text-navy shadow-sm">
+                <a
+                  href={`tel:${PHONE_RAW}`}
+                  className="rounded-lg bg-teal px-4 py-3 text-center font-semibold text-navy shadow-sm"
+                >
                   Call
                 </a>
-                <Link href="/#contact" onClick={() => setOpen(false)} className="rounded-lg bg-sky-900 px-4 py-3 text-center font-semibold text-white shadow-sm">
+                <Link
+                  href="/#contact"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg bg-sky-900 px-4 py-3 text-center font-semibold text-white shadow-sm"
+                >
                   Estimate
                 </Link>
               </div>
+
               <div className="px-3 pb-6 pt-2 text-center text-xs text-neutral-500">
                 {PHONE} • Maine Seacoast
               </div>

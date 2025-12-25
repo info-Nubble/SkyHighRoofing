@@ -1,5 +1,5 @@
-
 'use client';
+
 export default function StickyBar() {
   return (
     <div className="fixed inset-x-0 bottom-3 z-50 mx-auto w-[92%] max-w-md rounded-2xl bg-white shadow-soft border border-neutral-200 p-2 flex items-center justify-between md:hidden">
